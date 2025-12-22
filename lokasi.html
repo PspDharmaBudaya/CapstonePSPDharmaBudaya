@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lokasi | P.S.P. Dharma Budaya</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: Arial, sans-serif; 
+      background-color: #121212; 
+      color: white; 
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      width: 100%; 
+      padding: 15px 40px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      z-index: 999;
+    }
+
+    .logo img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .logo img:hover { transform: scale(1.1); }
+
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-links { display: flex; gap: 30px; }
+    .nav-links a { color: white; text-decoration: none; font-size: 16px; transition: color 0.3s; }
+    .nav-links a:hover { color: #19c12a; }
+    .nav-links a.active { color: #19c12a; }
+
+    .hamburger { display: none; flex-direction: column; cursor: pointer; margin-left: 20px; }
+    .hamburger span { height: 3px; width: 25px; background: white; margin: 4px 0; }
+
+    /* ===== LOKASI CONTENT ===== */
+    .lokasi-section {
+      margin-top: 100px;
+      padding: 40px 10%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      min-height: calc(100vh - 350px); /* Memastikan konten mengisi layar agar footer di bawah */
+    }
+
+    .map-container {
+      flex: 1 1 400px;
+      min-width: 350px;
+      max-width: 600px;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 350px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+
+    .info-container {
+      flex: 1 1 300px;
+      background: rgba(255,255,255,0.05);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .info-container h2 {
+      color: #c59d6b;
+      margin-bottom: 15px;
+      font-size: 22px;
+    }
+
+    .info-container p {
+      margin-bottom: 15px;
+      color: #ddd;
+      line-height: 1.6;
+    }
+
+    .info-container a {
+      color: #19c12a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* ===== FOOTER (IDENTIK) ===== */
+    footer {
+      background-color: #000;
+      padding: 50px 10% 20px;
+      color: #fff;
+      border-top: 2px solid #eed3b3;
+      margin-top: 40px;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .footer-logo {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .footer-left h3 span { color: #19c12a; }
+
+    .footer-center h4,
+    .footer-right h4 {
+      color: #ffffff;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 5px;
+    }
+
+    .social-item img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 10px;
+      font-size: 14px;
+      color: #888;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links { 
+        display: none; 
+        flex-direction: column; 
+        background-color: rgba(0,0,0,0.9); 
+        position: absolute; 
+        top: 70px; 
+        right: 40px; 
+        width: 200px; 
+        padding: 20px; 
+        border-radius: 8px; 
+      }
+      .nav-links.active { display: flex; }
+      .hamburger { display: flex; }
+      
+      .lokasi-section { 
+        flex-direction: column; 
+        padding: 40px 20px;
+      }
+      
+      .map-container, .info-container {
+        width: 100%;
+        max-width: 100%;
+        min-width: unset;
+      }
+
+      .footer-container {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">
+      <img src="logopadepokan.jpeg" alt="Logo Organisasi">
+    </div>
+    <div class="nav-right">
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>        
+        <a href="tentang.html">Tentang Kami</a>
+        <a href="kontak.html">Kontak</a>
+        <a href="lokasi.html" class="active">Lokasi</a>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <section class="lokasi-section">
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.3887410408545!2d106.6083049!3d-6.2122854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f8cd6f6c5357%3A0xc6c738e4a11f2a33!2sJl.%20Kramat%20Bencongan%20No.2%2C%20Bencongan%2C%20Kec.%20Kelapa%20Dua%2C%20Kabupaten%20Tangerang%2C%20Banten%2015810!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <div class="info-container">
+      <h2>PADEPOKAN SENI PENCAK SILAT DHARMA BUDAYA</h2>
+      <p><strong>Alamat:</strong><br>
+      Jl. Kramat Bencongan No.2, Bencongan,<br>
+      Kecamatan Kelapa Dua, Kabupaten Tangerang,<br>
+      Banten 15810</p>
+      <p><strong>Google Maps:</strong><br>
+        <a href="https://maps.google.com/?q=Jl.+Kramat+Bencongan+No.2,+Bencongan,+Kelapa+Dua" target="_blank">Buka Navigasi di Google Maps</a>
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-left">
+        <img src="logopadepokan.jpeg" class="footer-logo" alt="Logo">
+        <h3><span>P.S.P.</span> Dharma Budaya</h3>
+      </div>
+
+      <div class="footer-center">
+        <h4>Jam Operasional</h4>
+        <p>Senin - Minggu</p>
+        <p>08.00 - 22.00 WIB</p>
+      </div>
+
+      <div class="footer-right">
+        <h4>Follow Us</h4>
+
+        <div class="social-item">
+          <a href="https://www.instagram.com/psp.dharmabudaya" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram">
+          </a>
+          <span>@psp.dharmabudaya</span>
+        </div>
+
+        <div class="social-item">
+          <a href="https://youtube.com/@pspdharmabudayatng" target="_blank">
+            <img src="logoyt3.png" alt="YouTube">
+          </a>
+          <span>Psp Dharma Budaya Tng</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 P.S.P. Dharma Budaya. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>
